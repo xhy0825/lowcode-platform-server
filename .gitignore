@@ -1,0 +1,51 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Spring Boot
+application-dev.yml
+application-prod.yml
+application-local.yml
+
+# Environment
+.env
+
+# Temporary
+*.tmp
+*.temp
+*.swp
+*.bak
+
+# Build
+build/
+out/
+
+# Coverage
+coverage/
+
+# Claude Code
+.claude/

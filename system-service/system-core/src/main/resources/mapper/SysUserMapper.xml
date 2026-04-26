@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lowcode.platform.system.mapper.SysUserMapper">
+
+    <resultMap id="SysUserResult" type="com.lowcode.platform.system.entity.SysUser">
+        <id column="id" property="id"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="real_name" property="realName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="gender" property="gender"/>
+        <result column="status" property="status"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="login_ip" property="loginIp"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <select id="selectByUsername" resultMap="SysUserResult">
+        SELECT * FROM sys_user WHERE username = #{username} AND del_flag = 0
+    </select>
+
+    <select id="selectRoleCodesByUserId" resultType="String">
+        SELECT r.role_code FROM sys_role r
+        INNER JOIN sys_user_role ur ON r.id = ur.role_id
+        WHERE ur.user_id = #{userId} AND r.del_flag = 0
+    </select>
+
+    <select id="selectPermissionCodesByUserId" resultType="String">
+        SELECT p.permission_code FROM sys_permission p
+        INNER JOIN sys_role_permission rp ON p.id = rp.permission_id
+        INNER JOIN sys_user_role ur ON rp.role_id = ur.role_id
+        WHERE ur.user_id = #{userId} AND p.del_flag = 0
+    </select>
+
+</mapper>

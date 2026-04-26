@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.lowcode.platform</groupId>
+        <artifactId>lowcode-platform-server</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>common</artifactId>
+    <packaging>pom</packaging>
+
+    <name>common</name>
+    <description>公共模块父工程</description>
+
+    <modules>
+        <module>common-core</module>
+        <module>common-redis</module>
+        <module>common-mybatis</module>
+        <module>common-security</module>
+        <module>common-rocketmq</module>
+        <module>common-groovy</module>
+        <module>common-nacos</module>
+        <module>common-swagger</module>
+    </modules>
+
+</project>
