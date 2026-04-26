@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lowcode.platform.system.mapper.SysTenantMapper">
+
+    <resultMap id="SysTenantResult" type="com.lowcode.platform.system.entity.SysTenant">
+        <id column="id" property="id"/>
+        <result column="tenant_name" property="tenantName"/>
+        <result column="tenant_code" property="tenantCode"/>
+        <result column="package_id" property="packageId"/>
+        <result column="expire_time" property="expireTime"/>
+        <result column="db_schema" property="dbSchema"/>
+        <result column="admin_user_id" property="adminUserId"/>
+        <result column="status" property="status"/>
+        <result column="contact_name" property="contactName"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="contact_email" property="contactEmail"/>
+        <result column="address" property="address"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <sql id="selectTenantVo">
+        select id, tenant_name, tenant_code, package_id, expire_time, db_schema, admin_user_id,
+               status, contact_name, contact_phone, contact_email, address,
+               created_by, created_time, updated_by, updated_time, remark
+        from sys_tenant
+    </sql>
+
+    <select id="selectByTenantCode" resultMap="SysTenantResult">
+        <include refid="selectTenantVo"/>
+        where tenant_code = #{tenantCode}
+    </select>
+
+    <select id="checkTenantCodeExists" resultType="int">
+        select count(1) from sys_tenant
+        where tenant_code = #{tenantCode}
+        <if test="excludeId != null">
+            and id != #{excludeId}
+        </if>
+    </select>
+
+</mapper>
