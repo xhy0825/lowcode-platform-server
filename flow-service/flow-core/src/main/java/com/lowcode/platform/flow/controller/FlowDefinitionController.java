@@ -1,7 +1,7 @@
 package com.lowcode.platform.flow.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lowcode.platform.common.result.R;
+import com.lowcode.platform.common.core.result.R;
 import com.lowcode.platform.flow.entity.FlowDefinition;
 import com.lowcode.platform.flow.service.FlowDefinitionService;
 import lombok.RequiredArgsConstructor;

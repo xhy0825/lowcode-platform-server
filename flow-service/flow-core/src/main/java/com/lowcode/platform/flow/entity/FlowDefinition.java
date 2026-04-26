@@ -1,7 +1,7 @@
 package com.lowcode.platform.flow.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.lowcode.platform.common.entity.BaseEntity;
+import com.lowcode.platform.common.core.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

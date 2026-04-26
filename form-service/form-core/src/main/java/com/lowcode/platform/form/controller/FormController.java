@@ -2,6 +2,7 @@ package com.lowcode.platform.form.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lowcode.platform.common.core.result.R;
+import com.lowcode.platform.form.entity.FieldConfig;
 import com.lowcode.platform.form.entity.FormDefinition;
 import com.lowcode.platform.form.entity.FormData;
 import com.lowcode.platform.form.service.FormDefinitionService;
@@ -79,9 +80,8 @@ public class FormController {
 
     @Operation(summary = "更新字段配置")
     @PutMapping("/{id}/fields")
-    public R<Void> updateFields(@PathVariable Long id, @RequestBody List<?> fields) {
-        // 需要转换类型
-        formService.updateFieldConfig(id, null);
+    public R<Void> updateFields(@PathVariable Long id, @RequestBody List<FieldConfig> fields) {
+        formService.updateFieldConfig(id, fields);
         return R.ok();
     }
 

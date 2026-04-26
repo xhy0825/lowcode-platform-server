@@ -1,6 +1,7 @@
 package com.lowcode.platform.form.service.impl;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lowcode.platform.common.core.exception.BusinessException;
 import com.lowcode.platform.form.entity.FormDefinition;
@@ -8,7 +9,6 @@ import com.lowcode.platform.form.entity.FormData;
 import com.lowcode.platform.form.mapper.FormDefinitionMapper;
 import com.lowcode.platform.form.mapper.FormDataMapper;
 import com.lowcode.platform.form.service.FormDataService;
-import com.lowcode.platform.form.service.FormDefinitionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -171,7 +171,7 @@ public class FormDataServiceImpl implements FormDataService {
         List<Object> params = new ArrayList<>();
 
         for (Map.Entry<String, Object> entry : data.entrySet()) {
-            String column = entry.getKey().toLowerCase().replace(/[^a-z0-9]/g, '_');
+            String column = entry.getKey().toLowerCase().replaceAll("[^a-z0-9]", "_");
             sql.append(column).append(",");
             values.append("?,");
             params.add(entry.getValue());
@@ -201,7 +201,7 @@ public class FormDataServiceImpl implements FormDataService {
         List<Object> params = new ArrayList<>();
 
         for (Map.Entry<String, Object> entry : data.entrySet()) {
-            String column = entry.getKey().toLowerCase().replace(/[^a-z0-9]/g, '_');
+            String column = entry.getKey().toLowerCase().replaceAll("[^a-z0-9]", "_");
             sql.append(column).append(" = ?,");
             params.add(entry.getValue());
         }
@@ -247,7 +247,7 @@ public class FormDataServiceImpl implements FormDataService {
                     sql.append(" AND ");
                     countSql.append(" AND ");
                 }
-                String column = entry.getKey().toLowerCase().replace(/[^a-z0-9]/g, '_');
+                String column = entry.getKey().toLowerCase().replaceAll("[^a-z0-9]", "_");
                 sql.append(column).append(" = ?");
                 countSql.append(column).append(" = ?");
                 params.add(entry.getValue());
@@ -287,7 +287,7 @@ public class FormDataServiceImpl implements FormDataService {
             boolean first = true;
             for (Map.Entry<String, Object> entry : query.entrySet()) {
                 if (!first) sql.append(" AND ");
-                String column = entry.getKey().toLowerCase().replace(/[^a-z0-9]/g, '_');
+                String column = entry.getKey().toLowerCase().replaceAll("[^a-z0-9]", "_");
                 sql.append(column).append(" = ?");
                 params.add(entry.getValue());
                 first = false;

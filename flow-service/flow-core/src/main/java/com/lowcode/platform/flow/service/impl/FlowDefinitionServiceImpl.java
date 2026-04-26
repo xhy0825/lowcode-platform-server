@@ -2,7 +2,7 @@ package com.lowcode.platform.flow.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lowcode.platform.common.exception.BusinessException;
+import com.lowcode.platform.common.core.exception.BusinessException;
 import com.lowcode.platform.flow.entity.FlowDefinition;
 import com.lowcode.platform.flow.mapper.FlowDefinitionMapper;
 import com.lowcode.platform.flow.service.FlowDefinitionService;
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +104,7 @@ public class FlowDefinitionServiceImpl implements FlowDefinitionService {
         }
 
         // 校验节点配置
-        if (definition.getNodes() == null || definition.getNodes().isEmpty()) {
+        if (!StringUtils.hasText(definition.getNodes())) {
             throw new BusinessException("请先配置流程节点");
         }
 
