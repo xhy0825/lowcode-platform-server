@@ -29,6 +29,15 @@ spring:
       password:
       database: 0
 
+# JWT配置
+jwt:
+  secret: lowcode-platform-jwt-secret-key-must-be-at-least-256-bits-long-for-security
+  access-token-expire: 7200      # Access Token有效期（秒）：2小时
+  refresh-token-expire: 604800   # Refresh Token有效期（秒）：7天
+  header: Authorization
+  prefix: "Bearer "
+  issuer: lowcode-platform
+
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.lowcode.platform.system.entity

@@ -66,3 +66,17 @@ spring:
             - Path=/api/file/**
           filters:
             - StripPrefix=1
+
+# 安全配置
+security:
+  ignore:
+    urls:
+      - /auth/login
+      - /auth/captcha
+      - /auth/captcha/**
+      - /auth/refresh
+      - /auth/register
+      - /doc.html
+      - /webjars/**
+      - /swagger-resources/**
+      - /v3/api-docs/**
