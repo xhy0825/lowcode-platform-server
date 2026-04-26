@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Tag(name = "命令管理")
 @RestController
-@RequestMapping("/command")
+@RequestMapping("/system/command")
 @RequiredArgsConstructor
 public class SysCommandController {
 

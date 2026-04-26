@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Tag(name = "数据字典")
 @RestController
-@RequestMapping("/dict")
+@RequestMapping("/system/dict")
 @RequiredArgsConstructor
 public class SysDictController {
 

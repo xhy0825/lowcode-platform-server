@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Tag(name = "租户管理")
 @RestController
-@RequestMapping("/tenant")
+@RequestMapping("/system/tenant")
 @RequiredArgsConstructor
 public class SysTenantController {
 

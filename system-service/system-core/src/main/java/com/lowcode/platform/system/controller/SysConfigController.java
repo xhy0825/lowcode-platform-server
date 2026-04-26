@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Tag(name = "系统配置")
 @RestController
-@RequestMapping("/config")
+@RequestMapping("/system/config")
 @RequiredArgsConstructor
 public class SysConfigController {
 
