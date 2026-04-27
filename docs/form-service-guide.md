@@ -150,6 +150,18 @@ Content-Type: application/json
 - API文档: http://localhost:8083/doc.html
 - H2控制台: http://localhost:8083/h2-console
 
+## 测试覆盖
+
+| 测试类 | 测试内容 |
+|--------|----------|
+| FormDefinitionServiceImplTest | 表单定义CRUD、字段配置、发布流程 |
+| FormDataServiceImplTest | 数据提交、更新、删除、查询 |
+
+运行测试：
+```bash
+mvn test -pl form-service/form-core
+```
+
 ## 后续计划
 
 - [ ] 表单模板复制功能
