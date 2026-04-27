@@ -36,6 +36,15 @@ jobs:
     - name: Build Flow Service
       run: mvn package -pl flow-service/flow-core -am -DskipTests
 
+    - name: Build Page Service
+      run: mvn package -pl page-service/page-core -am -DskipTests
+
+    - name: Build Report Service
+      run: mvn package -pl report-service/report-core -am -DskipTests
+
+    - name: Build File Service
+      run: mvn package -pl file-service/file-core -am -DskipTests
+
     - name: Upload Gateway artifact
       uses: actions/upload-artifact@v4
       with:
@@ -59,6 +68,24 @@ jobs:
       with:
         name: flow-jar
         path: flow-service/flow-core/target/*.jar
+
+    - name: Upload Page Service artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: page-jar
+        path: page-service/page-core/target/*.jar
+
+    - name: Upload Report Service artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: report-jar
+        path: report-service/report-core/target/*.jar
+
+    - name: Upload File Service artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: file-jar
+        path: file-service/file-core/target/*.jar
 
   deploy:
     needs: build
@@ -93,6 +120,24 @@ jobs:
         name: flow-jar
         path: flow-service/flow-core/target
 
+    - name: Download Page Service artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: page-jar
+        path: page-service/page-core/target
+
+    - name: Download Report Service artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: report-jar
+        path: report-service/report-core/target
+
+    - name: Download File Service artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: file-jar
+        path: file-service/file-core/target
+
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
@@ -126,3 +171,24 @@ jobs:
         context: ./flow-service/flow-core
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/lowcode-flow:latest
+
+    - name: Build and push Page Service
+      uses: docker/build-push-action@v5
+      with:
+        context: ./page-service/page-core
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/lowcode-page:latest
+
+    - name: Build and push Report Service
+      uses: docker/build-push-action@v5
+      with:
+        context: ./report-service/report-core
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/lowcode-report:latest
+
+    - name: Build and push File Service
+      uses: docker/build-push-action@v5
+      with:
+        context: ./file-service/file-core
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/lowcode-file:latest
