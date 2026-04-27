@@ -228,6 +228,42 @@
                 <artifactId>flow-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- System Service -->
+            <dependency>
+                <groupId>com.lowcode.platform</groupId>
+                <artifactId>system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Data Service -->
+            <dependency>
+                <groupId>com.lowcode.platform</groupId>
+                <artifactId>data-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Form Service -->
+            <dependency>
+                <groupId>com.lowcode.platform</groupId>
+                <artifactId>form-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Page Service -->
+            <dependency>
+                <groupId>com.lowcode.platform</groupId>
+                <artifactId>page-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Report Service -->
+            <dependency>
+                <groupId>com.lowcode.platform</groupId>
+                <artifactId>report-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- File Service -->
+            <dependency>
+                <groupId>com.lowcode.platform</groupId>
+                <artifactId>file-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
