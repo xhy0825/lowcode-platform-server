@@ -1,0 +1,40 @@
+server:
+  port: 8083
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: form-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lowcode_platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.lowcode.platform.form.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+knife4j:
+  enable: true
+  openapi:
+    title: Form API
+    description: 表单服务接口文档
+    version: 1.0.0
