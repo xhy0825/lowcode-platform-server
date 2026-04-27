@@ -4,7 +4,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # 复制构建产物
-COPY flow-core/target/flow-core-*.jar app.jar
+COPY target/flow-core-*.jar app.jar
 
 # 设置环境变量
 ENV TZ=Asia/Shanghai

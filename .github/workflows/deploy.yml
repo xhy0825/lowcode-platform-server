@@ -21,39 +21,88 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven
-      run: mvn clean package -DskipTests
+    - name: Build Common modules
+      run: mvn clean install -pl common -am -DskipTests
 
-    - name: Upload artifacts
+    - name: Build Gateway
+      run: mvn package -pl gateway -am -DskipTests
+
+    - name: Build System Service
+      run: mvn package -pl system-service/system-core -am -DskipTests
+
+    - name: Build Form Service
+      run: mvn package -pl form-service/form-core -am -DskipTests
+
+    - name: Build Flow Service
+      run: mvn package -pl flow-service/flow-core -am -DskipTests
+
+    - name: Upload Gateway artifact
       uses: actions/upload-artifact@v4
       with:
-        name: backend-jars
-        path: |
-          gateway/target/*.jar
-          system-service/system-core/target/*.jar
-          form-service/form-core/target/*.jar
-          flow-service/flow-core/target/*.jar
+        name: gateway-jar
+        path: gateway/target/*.jar
+
+    - name: Upload System Service artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: system-jar
+        path: system-service/system-core/target/*.jar
+
+    - name: Upload Form Service artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: form-jar
+        path: form-service/form-core/target/*.jar
+
+    - name: Upload Flow Service artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: flow-jar
+        path: flow-service/flow-core/target/*.jar
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && secrets.DOCKER_USERNAME != ''
 
     steps:
-    - name: Download artifacts
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download Gateway artifact
       uses: actions/download-artifact@v4
       with:
-        name: backend-jars
-        path: artifacts
+        name: gateway-jar
+        path: gateway/target
+
+    - name: Download System Service artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: system-jar
+        path: system-service/system-core/target
+
+    - name: Download Form Service artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: form-jar
+        path: form-service/form-core/target
+
+    - name: Download Flow Service artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: flow-jar
+        path: flow-service/flow-core/target
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3
+      if: secrets.DOCKER_USERNAME != ''
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Gateway
       uses: docker/build-push-action@v5
+      if: secrets.DOCKER_USERNAME != ''
       with:
         context: ./gateway
         push: true
@@ -61,21 +110,24 @@ jobs:
 
     - name: Build and push System Service
       uses: docker/build-push-action@v5
+      if: secrets.DOCKER_USERNAME != ''
       with:
-        context: ./system-service
+        context: ./system-service/system-core
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/lowcode-system:latest
 
     - name: Build and push Form Service
       uses: docker/build-push-action@v5
+      if: secrets.DOCKER_USERNAME != ''
       with:
-        context: ./form-service
+        context: ./form-service/form-core
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/lowcode-form:latest
 
     - name: Build and push Flow Service
       uses: docker/build-push-action@v5
+      if: secrets.DOCKER_USERNAME != ''
       with:
-        context: ./flow-service
+        context: ./flow-service/flow-core
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/lowcode-flow:latest
