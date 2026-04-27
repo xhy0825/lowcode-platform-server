@@ -15,7 +15,7 @@ public class ForbiddenException extends BusinessException {
         super(403, message);
     }
 
-    public ForbiddenException(String permission) {
-        super(403, "缺少权限: " + permission);
+    public static ForbiddenException fromPermission(String permission) {
+        return new ForbiddenException("缺少权限: " + permission);
     }
 }
