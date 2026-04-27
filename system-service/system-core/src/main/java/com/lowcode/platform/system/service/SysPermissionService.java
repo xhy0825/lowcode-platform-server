@@ -24,18 +24,3 @@ public interface SysPermissionService {
     /** 获取用户信息 */
     SysUser getUserInfo(Long userId);
 }
-
-/**
- * 菜单树VO
- */
-public class MenuTreeVO {
-    private Long id;
-    private String permissionName;
-    private String permissionCode;
-    private Long parentId;
-    private String path;
-    private String component;
-    private String icon;
-    private Integer orderNum;
-    private List<MenuTreeVO> children;
-}
