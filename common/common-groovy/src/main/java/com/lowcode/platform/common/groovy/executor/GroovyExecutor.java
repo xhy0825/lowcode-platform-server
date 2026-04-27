@@ -106,6 +106,10 @@ public class GroovyExecutor {
      */
     public void shutdown() {
         executorService.shutdown();
-        groovyClassLoader.close();
+        try {
+            groovyClassLoader.close();
+        } catch (Exception e) {
+            log.warn("关闭GroovyClassLoader失败: {}", e.getMessage());
+        }
     }
 }

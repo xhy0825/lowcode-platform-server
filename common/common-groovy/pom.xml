@@ -15,13 +15,6 @@
     <name>common-groovy</name>
     <description>Groovy脚本引擎模块 - 脚本执行器、安全沙箱</description>
 
-    <repositories>
-        <repository>
-            <id>jenkins-repo</id>
-            <url>https://repo.jenkins-ci.org/releases/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <!-- 公共核心 -->
         <dependency>
@@ -37,13 +30,6 @@
         <dependency>
             <groupId>org.apache.groovy</groupId>
             <artifactId>groovy-json</artifactId>
-        </dependency>
-
-        <!-- Groovy Sandbox -->
-        <dependency>
-            <groupId>org.kohsuke</groupId>
-            <artifactId>groovy-sandbox</artifactId>
-            <version>1.25</version>
         </dependency>
 
         <!-- Lombok -->

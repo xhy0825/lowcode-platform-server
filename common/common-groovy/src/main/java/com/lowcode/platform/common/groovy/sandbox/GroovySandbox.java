@@ -1,11 +1,8 @@
 package com.lowcode.platform.common.groovy.sandbox;
 
 import groovy.lang.GroovyClassLoader;
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
-import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
-import org.kohsuke.groovy.sandbox.SandboxTransformer;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -77,19 +74,6 @@ public class GroovySandbox {
             importCustomizer.addImports(cls);
         }
         config.addCompilationCustomizers(importCustomizer);
-
-        // 安全AST检查
-        SecureASTCustomizer secureCustomizer = new SecureASTCustomizer();
-        secureCustomizer.setDisallowedImports(new HashSet<>()); // 只允许白名单导入
-        secureCustomizer.setDisallowedMethods(FORBIDDEN_METHODS);
-
-        // 禁止直接方法调用
-        secureCustomizer.setIndirectMethodCallAllowed(false);
-
-        // 禁止闭包
-        secureCustomizer.setClosuresAllowed(true);
-
-        config.addCompilationCustomizers(secureCustomizer);
 
         return new GroovyClassLoader(this.getClass().getClassLoader(), config);
     }
