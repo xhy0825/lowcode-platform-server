@@ -1,5 +1,6 @@
 package com.lowcode.platform.flow;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.lowcode.platform")
 @ComponentScan(basePackages = "com.lowcode.platform")
+@MapperScan("com.lowcode.platform.flow.mapper")
 public class FlowApplication {
 
     public static void main(String[] args) {
