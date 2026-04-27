@@ -28,6 +28,12 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!-- MyBatis Plus (for BaseEntity annotations) -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+
         <!-- Hutool 工具类 -->
         <dependency>
             <groupId>cn.hutool</groupId>
