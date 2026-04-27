@@ -32,6 +32,13 @@
             <artifactId>groovy-json</artifactId>
         </dependency>
 
+        <!-- Groovy Sandbox -->
+        <dependency>
+            <groupId>org.kohsuke</groupId>
+            <artifactId>groovy-sandbox</artifactId>
+            <version>1.25</version>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
