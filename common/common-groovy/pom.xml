@@ -15,6 +15,13 @@
     <name>common-groovy</name>
     <description>Groovy脚本引擎模块 - 脚本执行器、安全沙箱</description>
 
+    <repositories>
+        <repository>
+            <id>jenkins-repo</id>
+            <url>https://repo.jenkins-ci.org/releases/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- 公共核心 -->
         <dependency>
