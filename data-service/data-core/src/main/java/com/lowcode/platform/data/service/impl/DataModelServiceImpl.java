@@ -46,7 +46,7 @@ public class DataModelServiceImpl implements DataModelService {
     public DataModel getById(Long id) {
         DataModel model = modelMapper.selectById(id);
         if (model != null) {
-            model.setFields(modelMapper.selectFieldsByModelId(id));
+            model.setFields(fieldMapper.selectByModelId(id));
         }
         return model;
     }

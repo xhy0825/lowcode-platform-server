@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lowcode.platform.data.mapper.DataModelFieldMapper">
+
+    <!-- 根据模型ID删除字段 -->
+    <update id="deleteByModelId">
+        UPDATE data_model_field SET del_flag = 1 WHERE model_id = #{modelId}
+    </update>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert">
+        INSERT INTO data_model_field (
+            model_id, tenant_id, field_name, field_code, column_name,
+            field_type, length, precision, scale, is_required, is_unique,
+            is_indexed, is_primary, default_value, dict_type, relation_type,
+            relation_model_id, order_num, del_flag, created_by, created_time
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.modelId}, #{item.tenantId}, #{item.fieldName}, #{item.fieldCode}, #{item.columnName},
+                #{item.fieldType}, #{item.length}, #{item.precision}, #{item.scale}, #{item.isRequired}, #{item.isUnique},
+                #{item.isIndexed}, #{item.isPrimary}, #{item.defaultValue}, #{item.dictType}, #{item.relationType},
+                #{item.relationModelId}, #{item.orderNum}, #{item.delFlag}, #{item.createdBy}, #{item.createdTime}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 根据模型ID查询字段列表 -->
+    <select id="selectByModelId" resultType="com.lowcode.platform.data.entity.DataModelField">
+        SELECT * FROM data_model_field WHERE model_id = #{modelId} AND del_flag = 0 ORDER BY order_num ASC
+    </select>
+
+</mapper>

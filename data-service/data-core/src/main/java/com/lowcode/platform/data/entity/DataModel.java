@@ -5,6 +5,8 @@ import com.lowcode.platform.common.core.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * 数据模型实体
  */
@@ -30,4 +32,7 @@ public class DataModel extends BaseEntity {
 
     /** 版本号 */
     private Integer version;
+
+    /** 字段列表（非数据库字段） */
+    private List<DataModelField> fields;
 }
