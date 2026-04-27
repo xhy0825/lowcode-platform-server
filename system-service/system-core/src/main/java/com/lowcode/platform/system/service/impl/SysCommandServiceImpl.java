@@ -126,14 +126,14 @@ public class SysCommandServiceImpl extends ServiceImpl<SysCommandMapper, SysComm
         }
 
         // 创建执行日志
-        SysCommandLog log = new SysCommandLog();
-        log.setCommandId(commandId);
-        log.setTenantId(command.getTenantId());
-        log.setTriggerType(StringUtils.hasText(triggerBy) ? triggerBy : "manual");
-        log.setParams(params != null ? JSON.toJSONString(params) : null);
-        log.setStartTime(LocalDateTime.now());
-        log.setStatus("running");
-        commandLogMapper.insert(log);
+        SysCommandLog commandLog = new SysCommandLog();
+        commandLog.setCommandId(commandId);
+        commandLog.setTenantId(command.getTenantId());
+        commandLog.setTriggerType(StringUtils.hasText(triggerBy) ? triggerBy : "manual");
+        commandLog.setParams(params != null ? JSON.toJSONString(params) : null);
+        commandLog.setStartTime(LocalDateTime.now());
+        commandLog.setStatus("running");
+        commandLogMapper.insert(commandLog);
 
         try {
             // 执行脚本
@@ -141,11 +141,11 @@ public class SysCommandServiceImpl extends ServiceImpl<SysCommandMapper, SysComm
             GroovyResult result = groovyExecutor.execute(command.getScriptContent(), params, timeout);
 
             // 更新日志
-            log.setEndTime(LocalDateTime.now());
-            log.setDuration((int) (result.getEndTime() - result.getStartTime()));
-            log.setStatus(result.isSuccess() ? "success" : "failed");
-            log.setResult(result.getResult());
-            log.setErrorMessage(result.getError());
+            commandLog.setEndTime(LocalDateTime.now());
+            commandLog.setDuration((int) (result.getEndTime() - result.getStartTime()));
+            commandLog.setStatus(result.isSuccess() ? "success" : "failed");
+            commandLog.setResult(result.getResult());
+            commandLog.setErrorMessage(result.getError());
 
             if (!result.isSuccess()) {
                 // 重试机制
@@ -154,8 +154,8 @@ public class SysCommandServiceImpl extends ServiceImpl<SysCommandMapper, SysComm
                         log.info("命令执行失败，第{}次重试", i + 1);
                         GroovyResult retryResult = groovyExecutor.execute(command.getScriptContent(), params, timeout);
                         if (retryResult.isSuccess()) {
-                            log.setStatus("success");
-                            log.setResult(retryResult.getResult());
+                            commandLog.setStatus("success");
+                            commandLog.setResult(retryResult.getResult());
                             break;
                         }
                     }
@@ -163,15 +163,15 @@ public class SysCommandServiceImpl extends ServiceImpl<SysCommandMapper, SysComm
             }
 
         } catch (Exception e) {
-            log.setEndTime(LocalDateTime.now());
-            log.setDuration(0);
-            log.setStatus("failed");
-            log.setErrorMessage(e.getMessage());
+            commandLog.setEndTime(LocalDateTime.now());
+            commandLog.setDuration(0);
+            commandLog.setStatus("failed");
+            commandLog.setErrorMessage(e.getMessage());
             log.error("命令执行异常: ", e);
         }
 
-        commandLogMapper.updateById(log);
-        return log;
+        commandLogMapper.updateById(commandLog);
+        return commandLog;
     }
 
     @Override
