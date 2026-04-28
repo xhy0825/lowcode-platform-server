@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import redis.embedded.RedisServer;
+import redis.embedded.RedisServerBuilder;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -24,7 +25,11 @@ public class EmbeddedRedisConfig {
 
     @PostConstruct
     public void startRedis() throws IOException {
-        redisServer = new RedisServer(redisPort);
+        // Windows需要设置maxheap避免"insufficient disk space"错误
+        redisServer = new RedisServerBuilder()
+                .port(redisPort)
+                .setting("maxheap 128MB")
+                .build();
         redisServer.start();
         System.out.println("========================================");
         System.out.println("Embedded Redis started on port: " + redisPort);
