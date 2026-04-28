@@ -2,6 +2,7 @@ package com.lowcode.platform.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lowcode.platform.data.entity.DataModel;
+import com.lowcode.platform.data.entity.DataModelField;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
