@@ -34,17 +34,12 @@ public class MinioConfig {
      */
     private String bucketName;
 
-    /**
-     * 是否安全连接
-     */
-    private boolean secure = false;
-
     @Bean
     public MinioClient minioClient() {
+        // endpoint URL决定是否使用HTTPS（http://开头则为非安全连接）
         return MinioClient.builder()
                 .endpoint(endpoint)
                 .credentials(accessKey, secretKey)
-                .secure(secure)
                 .build();
     }
 }
