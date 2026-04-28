@@ -1,6 +1,7 @@
 package com.lowcode.platform.report.service.impl;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lowcode.platform.common.core.exception.BusinessException;
@@ -112,7 +113,8 @@ public class DashboardServiceImpl implements DashboardService {
 
         // 解析布局配置，获取图表列表
         if (StringUtils.hasText(dashboard.getLayoutConfig())) {
-            List<Map<String, Object>> layoutItems = JSON.parseArray(dashboard.getLayoutConfig(), Map.class);
+            List<Map<String, Object>> layoutItems = JSON.parseObject(dashboard.getLayoutConfig(),
+                    new TypeReference<List<Map<String, Object>>>() {});
             List<Map<String, Object>> chartDataList = new ArrayList<>();
 
             for (Map<String, Object> item : layoutItems) {
